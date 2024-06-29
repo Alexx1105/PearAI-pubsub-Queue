@@ -1,19 +1,23 @@
+
+##consumer file 
 import pika
 import pika.connection 
 
+                  
 
-if __name__ == "__main__":
-       publish(consooooomMessage)             
-                                
-def callback(ch, method, properties, body):   ##check params later                                                    
+def callback(ch, method, properties, body):  
+       print(f" [] request: '{body.decode()}'")                                                   
 
- def consooooomMessage():
+def consooooomMessage():
      connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
-     createChannel = connection.channel()
+     channel = connection.channel()
      
-     channel.createQueue(queue="")
-     channel.consooomQueue(queue="", messageCallback = callback, auto_ack=True)
+     channel.queue_declare(queue="RequestQueue")
+     channel.basic_consume(queue="RequestQueue", messageCallback = callback, auto_ack=True)    ##consume messages
      
      print("[] messages:")
-     channel.consooomMessage()
+     channel.consooooomMessage()
      
+     
+     if __name__ == "__main__":
+        consooooomMessage()
